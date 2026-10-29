@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>中国教育考试网</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100%;
+  min-height: 100%;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f4f4f4;
+  color: #222;
+}
+
+.disclaimer {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: #fff2f2;
+  color: #a91d1d;
+  border-bottom: 1px solid #ffd0d0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  padding: 5px 10px;
+  display: none;
+}
+.phone-frame {
+  width: 100%;
+  min-height: 100vh;
+  background: #f7f7f7;
+  overflow: hidden;
+}
+.status-bar {
+  height: 43px;
+  padding: 0 42px 0 55px;
+  background: #f7f7f7;
+  color: #111;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 700;
+}
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+.signal {
+  width: 18px;
+  height: 14px;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+.signal i {
+  display: block;
+  width: 3px;
+  background: #111;
+  border-radius: 2px;
+}
+.signal i:nth-child(1) { height: 5px; }
+.signal i:nth-child(2) { height: 8px; }
+.signal i:nth-child(3) { height: 11px; }
+.signal i:nth-child(4) { height: 14px; }
+.battery {
+  min-width: 22px;
+  height: 14px;
+  border-radius: 4px;
+  background: #111;
+  color: #fff;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+}
+.browser-bar,
+.app-bar {
+  height: 54px;
+  background: #f2f2f2;
+  color: #1d1d1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 600;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.browser-bar .back,
+.app-bar .back {
+  position: absolute;
+  left: 22px;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 200;
+}
+.browser-bar .menu,
+.app-bar .menu {
+  position: absolute;
+  right: 18px;
+  top: 15px;
+  font-size: 22px;
+  letter-spacing: 1px;
+}
+.browser-domain {
+  font-size: 17px;
+  font-weight: 700;
+}
+.start-page {
+  min-height: 100vh;
+  background: #f7f7f7 url("./object_con3_bg.png") left bottom / min(750px, 80vw) auto no-repeat;
+  position: relative;
+}
+.start-content {
+  text-align: center;
+  color: #929292;
+  padding: 34px 22px 0;
+  min-height: 100vh;
+  position: relative;
+}
+.neea-logo {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #1e4d87;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 34px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.5px;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,0.35);
+  position: relative;
+}
+.neea-logo::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(255,255,255,0.8);
+  border-radius: 50%;
+}
+.start-page .neea-logo {
+  width: 58px;
+  height: 58px;
+  background: none;
+  box-shadow: none;
+  overflow: hidden;
+}
+.start-page .neea-logo::before {
+  display: none;
+}
+.start-page .neea-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.start-tip {
+  max-width: 430px;
+  margin: 0 auto;
+  color: #8a8a8a;
+  font-size: 15px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+.open-btn {
+  margin-top: 26px;
+  border: 1px solid #c4c4c4;
+  background: #fafafa;
+  color: #444;
+  border-radius: 4px;
+  padding: 7px 16px;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+.dev-note {
+  display: none;
+}
+.start-page .status-bar,
+.start-page .browser-bar {
+  display: none;
+}
+.start-page .start-content {
+  padding-top: 64px;
+}
+.open-sheet {
+  min-height: 100vh;
+  background: #f7f7f7;
+  text-align: center;
+  color: #111;
+  position: relative;
+  overflow: hidden;
+}
+.open-sheet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0,0,0,0.56);
+}
+.open-sheet .status-bar {
+  display: none;
+  background: #f2f2f2;
+  color: #111;
+}
+.open-sheet .browser-bar {
+  background: #f2f2f2;
+  position: relative;
+  z-index: 0;
+}
+.open-program-body {
+  padding-top: 150px;
+  color: #111;
+  position: relative;
+}
+.open-program-body::before {
+  content: none;
+  display: none;
+}
+.open-program-body .neea-logo {
+  width: 62px;
+  height: 62px;
+  margin-bottom: 22px;
+  background: none;
+  box-shadow: none;
+  overflow: hidden;
+}
+.open-program-body .neea-logo::before {
+  display: none;
+}
+.open-program-body .neea-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.program-name {
+  font-size: 17px;
+  margin-bottom: 34px;
+}
+.confirm-box {
+  width: calc(100% - 128px);
+  min-width: 300px;
+  max-width: 344px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 11px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.confirm-title {
+  padding: 35px 14px 33px;
+  font-size: 17px;
+  font-weight: 700;
+  border-bottom: 1px solid #e7e7e7;
+}
+.confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 59px;
+}
+.confirm-actions button {
+  border: none;
+  background: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.confirm-actions button + button {
+  border-left: 1px solid #e7e7e7;
+  color: #5077b5;
+}
+.mini-program-watermark {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 78px;
+  z-index: 0;
+  color: rgba(0,0,0,0.2);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.mini-program-watermark::before {
+  content: "\266A";
+  font-size: 13px;
+  line-height: 1;
+  display: inline-block;
+}
+.app-bar.blue {
+  background: #1b3b6f;
+  color: #fff;
+  height: 54px;
+}
+.app-bar.blue .menu-pill {
+  position: absolute;
+  right: 13px;
+  width: 78px;
+  height: 30px;
+  border-radius: 18px;
+  background: rgba(12,48,94,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 16px;
+}
+.hero {
+  background: #1b3b6f;
+  color: #fff;
+  padding: 36px 18px 54px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "△△";
+  position: absolute;
+  inset: -30px 0 auto;
+  color: rgba(255,255,255,0.10);
+  font-size: 128px;
+  letter-spacing: -24px;
+  font-weight: 100;
+}
+.hero-title {
+  position: relative;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.dev-badge {
+  display: none;
+}
+.intro-card,
+.card {
+  width: calc(100% - 34px);
+  margin: -58px auto 18px;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.12);
+  position: relative;
+  z-index: 2;
+  padding: 30px 24px 30px;
+}
+.verify-intro {
+  line-height: 1.82;
+  color: #333;
+  font-size: 16px;
+  text-align: left;
+}
+.verify-intro p { margin-bottom: 18px; }
+.inline-dev-note {
+  display: none;
+}
+.exam-list {
+  margin-top: 8px;
+}
+.exam-list div {
+  margin: 9px 0;
+  line-height: 1.7;
+}
+.primary-btn {
+  width: 100%;
+  margin-top: 24px;
+  border: none;
+  border-radius: 5px;
+  background: #1d4a88;
+  color: #fff;
+  padding: 13px;
+  font-size: 16px;
+  cursor: pointer;
+}
+#pageIntro.phone-frame {
+  max-width: 476px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f7f7f7;
+  overflow: hidden;
+}
+#pageIntro .status-bar {
+  display: none;
+  height: 36px;
+  padding: 0 40px 0 44px;
+  background: #004f86;
+  color: #fff;
+}
+#pageIntro .status-bar .signal i {
+  background: #fff;
+}
+#pageIntro .status-bar .battery {
+  background: #54c94a;
+  color: #fff;
+}
+#pageIntro .app-bar.blue {
+  height: 54px;
+  background: #1b3b6f;
+  border-bottom: none;
+}
+#pageIntro .app-bar.blue > span:nth-child(2) {
+  display: none;
+}
+#pageIntro .app-bar.blue .back {
+  left: 16px;
+  font-size: 38px;
+  color: #fff;
+}
+#pageIntro .app-bar.blue .menu-pill {
+  right: 13px;
+  top: 9px;
+  width: 88px;
+  height: 32px;
+  border-radius: 17px;
+  background: rgba(17,38,66,0.78);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: grid;
+  grid-template-columns: 44px 44px;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  overflow: hidden;
+}
+#pageIntro .menu-dots,
+#pageIntro .menu-circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+#pageIntro .menu-minus { display: none; }
+#pageIntro .menu-dots::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 8px 0 0 #fff, 16px 0 0 #fff;
+  transform: translateX(-8px);
+}
+#pageIntro .menu-circle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: rgba(255,255,255,0.25);
+}
+#pageIntro .menu-circle::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #fff 0 1.6px, transparent 1.6px 6px, #fff 6px 8px, transparent 8px);
+}
+#pageIntro .hero {
+  height: 150px;
+  padding: 40px 18px 0;
+  background: #1b3b6f;
+  overflow: hidden;
+}
+#pageIntro .hero::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -12px;
+  bottom: auto;
+  width: 330px;
+  height: 190px;
+  transform: translateX(-50%);
+  background: url("./object_con3_bg.png") left top / contain no-repeat;
+  opacity: 0.18;
+}
+#pageIntro .hero-title {
+  position: relative;
+  z-index: 1;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #fff;
+}
+#pageIntro .dev-badge,
+#pageIntro .inline-dev-note {
+  display: none;
+}
+#pageIntro .intro-card {
+  width: calc(100% - 36px);
+  margin: -61px auto 0;
+  padding: 37px 25px 31px;
+  border-radius: 7px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+#pageIntro .intro-card::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  width: 280px;
+  height: 280px;
+  transform: translate(-50%, -50%);
+  background: url("./logo.png") center / contain no-repeat;
+  opacity: 0.07;
+  pointer-events: none;
+}
+#pageIntro .verify-intro {
+  position: relative;
+  z-index: 1;
+  color: #30343b;
+  font-size: 15px;
+  line-height: 1.6;
+}
+#pageIntro .verify-intro > p:first-child {
+  text-indent: 2em;
+}
+#pageIntro .verify-intro p {
+  margin-bottom: 12px;
+}
+#pageIntro .exam-list {
+  margin-top: 0;
+}
+#pageIntro .exam-list div {
+  margin: 0 0 4px;
+  line-height: 1.55;
+}
+#pageIntro .primary-btn {
+  height: 48px;
+  margin-top: 22px;
+  padding: 0;
+  border-radius: 6px;
+  background: #1b3b6f;
+  font-size: 17px;
+}
+#pageIntro .footer-mark {
+  color: #c5c5c5;
+  font-size: 14px;
+  padding: 26px 12px 20px;
+}
+#pageDetail.phone-frame {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  margin: 0;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+#pageDetail .status-bar {
+  display: none;
+  height: 43px;
+  padding: 0 40px 0 52px;
+  background: #004f86;
+  color: #fff;
+}
+#pageDetail .status-bar .signal i {
+  background: #fff;
+}
+#pageDetail .status-bar .battery {
+  background: #54c94a;
+  color: #fff;
+}
+#pageDetail .app-bar.blue {
+  height: 58px;
+  background: #1b3b6f;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  align-items: center;
+  padding: 0;
+  justify-content: center;
+  position: relative;
+}
+#pageDetail .app-bar.blue > span:nth-child(2) {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+#pageDetail .app-bar.blue .back {
+  left: 16px;
+  font-size: 34px;
+  font-weight: 200;
+}
+#pageDetail .app-bar.blue .menu-pill {
+  right: 9px;
+  width: 88px;
+  height: 32px;
+  border-radius: 17px;
+  background: rgba(17, 38, 66, 0.78);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: grid;
+  grid-template-columns: 44px 44px;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+  overflow: hidden;
+}
+#pageDetail .menu-dots,
+#pageDetail .menu-circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+#pageDetail .menu-circle {
+  cursor: pointer;
+}
+#pageDetail .menu-minus { display: none; }
+#pageDetail .menu-dots::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 8px 0 0 #fff, 16px 0 0 #fff;
+  transform: translateX(-8px);
+}
+#pageDetail .menu-circle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  bottom: 7px;
+  width: 1px;
+  background: rgba(255,255,255,0.25);
+}
+#pageDetail .menu-circle::after {
+  content: "";
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #fff 0 1.5px, transparent 1.5px 5.5px, #fff 5.5px 7.5px, transparent 7.5px);
+}
+.title-block {
+  text-align: center;
+  padding: 26px 0 8px;
+  background: #fff;
+}
+.title-block h1 {
+  font-size: 20px;
+  line-height: 1.78;
+  font-weight: 700;
+}
+.photo {
+  width: 92px;
+  height: 122px;
+  background: #1f80c8;
+  margin: 28px auto 12px;
+  overflow: hidden;
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card.detail-card {
+  width: 100%;
+  margin: 0;
+  padding: 0 16px;
+  border-radius: 0;
+  box-shadow: none;
+  position: static;
+  overflow: visible;
+}
+.tab {
+  position: absolute;
+  top: 150px;
+  left: 0;
+  min-width: 139px;
+  background: #4aa3f4;
+  color: #fff;
+  padding: 7px 0 8px;
+  border-radius: 0 7px 7px 0;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+.info-card {
+  position: relative;
+  overflow: hidden;
+  background: #ffffff;
+  border: none;
+  border-radius: 6px;
+  box-shadow:
+    0  -2px 8px rgba(0, 0, 0, 0.06),
+    0   2px 8px rgba(0, 0, 0, 0.06),
+    -2px 0  8px rgba(0, 0, 0, 0.06),
+    2px  0  8px rgba(0, 0, 0, 0.06);
+  overflow‑x: auto;
+}
+.info-card::before {
+  content: "";
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  transform: translate(-50%, -50%);
+  background: url("./logo.png") center / contain no-repeat;
+  opacity: 0.11;
+  pointer-events: none;
+}
+.row {
+  min-height: 41px;
+  display: grid;
+  grid-template-columns: 172px minmax(0, 1fr);
+  align-items: center;
+  padding: 0 12px;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+.row::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 1px;
+  background-color: #ededed;
+}
+.row:last-child::after {
+  display: none;
+}
+.label {
+  color: #111;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.label:not(.score-sub) {
+  width: 4em;
+  text-align: justify;
+  text-align-last: justify;
+}
+.value {
+  color: #555;
+  text-align: right;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  font-variant-numeric: lining-nums;
+}
+.score-sub {
+  padding-left: 56px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.notice {
+  width: 100%;
+  margin-top: 8px;
+  padding: 4px 20px 14px;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.55;
+  background: transparent;
+}
+.footer-mark {
+  text-align: center;
+  color: #c8c8c8;
+  font-size: 15px;
+  padding: 72px 12px 28px;
+}
+.loading-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  pointer-events: auto;
+}
+.loading-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loading-gif {
+  width: 60px;
+  height: 24px;
+  display: block;
+  object-fit: contain;
+}
+.hidden { display: none; }
+@media (min-width: 560px) {
+  body { background: #eee; }
+}
+@media (max-width: 430px) {
+  .row { grid-template-columns: 156px minmax(0, 1fr); }
+  .score-sub { padding-left: 44px; }
+}
+</style>
+</head>
+<body>
+<div class="disclaimer">开发预览页面，仅用于单位内部联调与验收；不作为正式核验、认证或对外证明。</div>
+
+<section id="pageStart" class="start-page phone-frame hidden">
+  <div class="status-bar">
+    <span>20:11</span>
+    <span class="status-icons"><span class="signal"><i></i><i></i><i></i><i></i></span><span>4G</span><span class="battery">51</span></span>
+  </div>
+  <div class="browser-bar"><span class="back">×</span><span class="browser-domain">中国教育考试网</span><span class="menu">···</span></div>
+  <div class="start-content">
+    <div class="neea-logo"><img src="./logo.png" alt="NEEA"></div>
+    <p class="start-tip">请使用“中国教育考试网”微信小程序证书（成绩单）核验功能，进行扫码核验。</p>
+    <button class="open-btn" id="openPreview">打开小程序</button>
+  </div>
+</section>
+
+<section id="pageConfirm" class="open-sheet hidden">
+  <div class="status-bar">
+    <span>20:11</span>
+    <span class="status-icons"><span class="signal"><i></i><i></i><i></i><i></i></span><span>4G</span><span class="battery">51</span></span>
+  </div>
+  <div class="browser-bar"><span class="back" data-back="start">×</span><span>打开小程序</span></div>
+  <div class="open-program-body">
+    <div class="neea-logo"><img src="./logo.png" alt="中国教育考试网"></div>
+    <div class="program-name">中国教育考试网</div>
+    <div class="confirm-box">
+      <div class="confirm-title">即将打开“中国教育考试网”小程序</div>
+      <div class="confirm-actions">
+        <button type="button" data-back="start">取消</button>
+        <button type="button" id="confirmOpen">打开</button>
+      </div>
+    </div>
+  </div>
+  <div class="mini-program-watermark">小程序</div>
+</section>
+
+<section id="pageIntro" class="hidden phone-frame">
+  <div class="status-bar">
+    <span>20:11</span>
+    <span class="status-icons"><span class="signal"><i></i><i></i><i></i><i></i></span><span>4G</span><span class="battery">51</span></span>
+  </div>
+  <div class="app-bar blue"><span class="back" data-back="start">‹</span><span>中国教育考试网</span><span class="menu-pill"><i class="menu-dots"></i><i class="menu-minus"></i><i class="menu-circle"></i></span></div>
+  <div class="hero"><div class="hero-title">证书（成绩单）在线验证</div><div class="dev-badge">开发预览</div></div>
+  <div class="intro-card">
+    <div class="verify-intro">
+      <p>扫描证书（成绩单）上的二维码，核验证书（成绩单）真伪。请勿使用第三方程序扫描，以免上当受骗。</p>
+      <p class="inline-dev-note">当前为开发预览环境，展示数据仅用于内部联调与验收。</p>
+      <p>支持扫码核验的考试：</p>
+      <div class="exam-list">
+        <div>中小学教师资格考试(NTCE)：自2022年上半年起</div>
+        <div>全国大学英语四、六级考试(CET)：自2021年6月起</div>
+        <div>全国计算机等级考试(NCRE)：自2022年3月起</div>
+        <div>全国英语等级考试(PETS)：自2021年3月起</div>
+        <div>全国外语水平考试(WSK)：自2021年5月起</div>
+        <div>中国少数民族汉语水平等级考试(MHK)：自2022年5月起</div>
+        <div>全国计算机应用水平考试(NIT)：自2023年4月起</div>
+        <div>书画等级考试(CCPT)：自2023年5月起</div>
+      </div>
+      <button class="primary-btn" id="showDetail">扫描二维码</button>
+    </div>
+  </div>
+  <div class="footer-mark">主办单位：教育部教育考试院</div>
+</section>
+
+<section id="pageDetail" class="hidden phone-frame">
+  <div class="status-bar">
+    <span>20:11</span>
+    <span class="status-icons"><span class="signal"><i></i><i></i><i></i><i></i></span><span>4G</span><span class="battery">51</span></span>
+  </div>
+  <div class="app-bar blue"><span class="back" data-back="intro">‹</span><span>中国教育考试网</span><span class="menu-pill"><i class="menu-dots"></i><i class="menu-minus"></i><i class="menu-circle" id="detailClose" role="button" aria-label="关闭"></i></span></div>
+  <div class="title-block">
+    <h1 id="examTitle">全国大学英语四级考试<br>成绩报告单</h1>
+  </div>
+  <div class="photo" id="photoBox">
+	<img src="./photo.png" alt="预览头像" title style>
+	</div>
+  <div class="card detail-card">
+    <div class="tab">核验信息</div>
+    <div class="info-card">
+      <div class="row">
+		<div class="label">姓名</div>
+		<div class="value" id="name"></div>
+	  </div>
+      <div class="row"><div class="label">身份证号</div><div class="value" id="idcard">--</div></div>
+      <div class="row"><div class="label">学校</div><div class="value" id="school">--</div></div>
+      <div class="row"><div class="label">院系</div><div class="value" id="dept">--</div></div>
+      <div class="row"><div class="label">准考证号</div><div class="value" id="examid">--</div></div>
+      <div class="row"><div class="label">考试时间</div><div class="value" id="date">--</div></div>
+      <div class="row"><div class="label">总    分</div><div class="value" id="total">574</div></div>
+      <div class="row"><div class="label score-sub">听力(35%)</div><div class="value" id="listen">--</div></div>
+      <div class="row"><div class="label score-sub">阅读(35%)</div><div class="value" id="read">--</div></div>
+      <div class="row"><div class="label score-sub">写作和翻译(30%)</div><div class="value" id="write">--</div></div>
+      <div class="row"><div class="label">口试准考证号</div><div class="value" id="oralExamid">--</div></div>
+      <div class="row"><div class="label">口试成绩</div><div class="value" id="oralScore">--</div></div>
+      <div class="row"><div class="label">口试考试时间</div><div class="value" id="oralDate">--</div></div>
+      <div class="row"><div class="label">成绩报告单编号</div><div class="value" id="reportid">--</div></div>
+      <div class="row"><div class="label">校验码</div><div class="value" id="verify">--</div></div>
+    </div>
+  </div>
+  <div class="notice">
+    提示：请核对比以上核验信息与电子成绩报告单信息是否一致，可登录中国教育考试网（www.neea.edu.cn）查询此电子成绩报告单。<br>
+    验证时间：<span id="verifyTime">--</span>
+  </div>
+</section>
+
+<div id="loadingMask" class="loading-mask">
+  <div class="loading-box">
+    <img class="loading-gif" src="./loading-0.gif" alt="加载中">
+  </div>
+</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const pathRecordMatch = location.pathname.match(/^\/v\/([^/]+)\/?$/);
+const recordIdFromPath = pathRecordMatch ? pathRecordMatch[1] : '';
+const recordId = params.get('id') || recordIdFromPath;
+let data = readDataFromQuery();
+let loadError = '';
+let introAutoTimer = null;
+
+function emptyData() {
+  return {
+    type: 'cet4',
+    name: '派大星',
+    school: '四六大学',
+    dept: '上岸学院',
+    idcard: '012345678912345678',
+    examid: '012345678912345',
+    date: '2026年6月',
+    total: '639',
+    listen: '213',
+    read: '213',
+    write: '213',
+    oralExamid: '--',
+    oralScore: '--',
+    oralDate: '--',
+    reportid: '012345678912345',
+    verify: '38YN ZMDG 8C7I A3OP',
+    photo: '',
+  };
+}
+
+function readDataFromQuery() {
+  const fallback = emptyData();
+  return {
+    type: params.get('type') || fallback.type,
+    name: params.get('name') || fallback.name,
+    school: params.get('school') || fallback.school,
+    dept: params.get('dept') || fallback.dept,
+    idcard: params.get('idcard') || fallback.idcard,
+    examid: params.get('examid') || fallback.examid,
+    date: params.get('date') || fallback.date,
+    total: params.get('total') || fallback.total,
+    listen: params.get('listen') || fallback.listen,
+    read: params.get('read') || fallback.read,
+    write: params.get('write') || fallback.write,
+    oralExamid: params.get('oralExamid') || fallback.oralExamid,
+    oralScore: params.get('oralScore') || fallback.oralScore,
+    oralDate: params.get('oralDate') || fallback.oralDate,
+    reportid: params.get('reportid') || fallback.reportid,
+    verify: params.get('verify') || fallback.verify,
+    photo: params.get('photo') || fallback.photo,
+  };
+}
+
+async function loadRecordIfNeeded() {
+  if (!recordId) return;
+  try {
+    // ✅ 这里改成 Pages Functions 接口，替换原来的php
+    const response = await fetch(`/.functions/getById?id=${encodeURIComponent(recordId)}`, { cache: 'no-store' });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.code !== 200) throw new Error(result.msg || '记录读取失败');
+    data = { ...emptyData(), ...result.data };
+  } catch (err) {
+    loadError = err.message || '记录读取失败';
+    data = emptyData();
+  }
+}
+
+function show(page, options = {}) {
+  if (!options.keepLoading) {
+    document.getElementById('loadingMask')?.classList.add('hidden');
+  }
+  if (page !== 'pageIntro' && introAutoTimer) {
+    clearTimeout(introAutoTimer);
+    introAutoTimer = null;
+  }
+  document.getElementById('pageStart').classList.add('hidden');
+  document.getElementById('pageConfirm').classList.add('hidden');
+  document.getElementById('pageIntro').classList.add('hidden');
+  document.getElementById('pageDetail').classList.add('hidden');
+  document.getElementById(page).classList.remove('hidden');
+}
+
+function formatBeijingTime(date = new Date()) {
+  const parts = new Intl.DateTimeFormat('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).formatToParts(date).reduce((acc, part) => {
+    acc[part.type] = part.value;
+    return acc;
+  }, {});
+  return `${parts.year}年${parts.month}月${parts.day}日${parts.hour}:${parts.minute}:${parts.second}`;
+}
+
+function setVerifyTimeOnce() {
+  const target = document.getElementById('verifyTime');
+  if (target) target.textContent = formatBeijingTime();
+}
+
+async function fillDetail() {
+  await loadRecordIfNeeded();
+  document.getElementById('examTitle').innerHTML = data.type === 'cet6'
+    ? '全国大学英语六级考试<br>成绩报告单'
+    : '全国大学英语四级考试<br>成绩报告单';
+  ['name','school','dept','idcard','examid','date','total','listen','read','write','oralExamid','oralScore','oralDate','reportid','verify'].forEach(key => {
+    document.getElementById(key).textContent = data[key] || '--';
+  });
+  if (data.photo) {
+    document.getElementById('photoBox').innerHTML = `<img src="${data.photo}" alt="预览头像">`;
+  }
+  if (loadError) {
+    document.querySelector('.notice').textContent = `提示：${loadError}。请确认二维码链接对应的记录仍存在。`;
+  }
+}
+
+function showLoading(visible) {
+  document.getElementById('loadingMask').classList.toggle('hidden', !visible);
+}
+
+function waitForImage(image) {
+  if (image.complete) return Promise.resolve();
+  return new Promise(resolve => {
+    let finished = false;
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      clearTimeout(timer);
+      image.removeEventListener('load', done);
+      image.removeEventListener('error', done);
+      resolve();
+    };
+    const timer = setTimeout(done, 1200);
+    image.addEventListener('load', done, { once: true });
+    image.addEventListener('error', done, { once: true });
+  });
+}
+
+async function waitForDetailReady() {
+  const pageDetail = document.getElementById('pageDetail');
+  const imageReady = Promise.all([...pageDetail.querySelectorAll('img')].map(waitForImage));
+  const fontReady = document.fonts?.ready
+    ? Promise.race([document.fonts.ready.catch(() => {}), new Promise(resolve => setTimeout(resolve, 1200))])
+    : Promise.resolve();
+  await Promise.all([imageReady, fontReady]);
+  await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+}
+
+async function enterDetail() {
+  if (introAutoTimer) {
+    clearTimeout(introAutoTimer);
+    introAutoTimer = null;
+  }
+  showLoading(true);
+  const minimumLoading = new Promise(resolve => setTimeout(resolve, 1200));
+  try {
+    await fillDetail();
+    setVerifyTimeOnce();
+    show('pageDetail', { keepLoading: true });
+    await Promise.all([waitForDetailReady(), minimumLoading]);
+  } finally {
+    showLoading(false);
+  }
+}
+
+function closeVerifyWindow() {
+  const fallback = () => {
+    if (history.length > 1) {
+      history.back();
+    } else {
+      show('pageStart');
+    }
+  };
+  if (window.WeixinJSBridge?.call) {
+    window.WeixinJSBridge.call('closeWindow');
+    setTimeout(fallback, 300);
+    return;
+  }
+  window.close();
+  setTimeout(fallback, 150);
+}
+
+document.getElementById('openPreview').addEventListener('click', () => show('pageConfirm'));
+document.getElementById('confirmOpen').addEventListener('click', () => {
+  show('pageIntro');
+  introAutoTimer = setTimeout(enterDetail, 500);
+});
+document.getElementById('showDetail').addEventListener('click', enterDetail);
+document.getElementById('detailClose').addEventListener('click', closeVerifyWindow);
+document.querySelectorAll('[data-back]').forEach(el => {
+  el.addEventListener('click', () => show(el.dataset.back === 'start' ? 'pageStart' : 'pageIntro'));
+});
+
+async function enterStart() {
+  showLoading(true);
+  await new Promise(resolve => setTimeout(resolve, 1200));
+  show('pageStart');
+}
+
+enterStart();
+document.oncontextmenu=()=>false;
+document.onkeydown=e=>{
+if(e.keyCode===123)return false;
+}
+</script>
+</body>
+</html>
