@@ -978,7 +978,6 @@ function readDataFromQuery() {
 async function loadRecordIfNeeded() {
   if (!recordId) return;
   try {
-    // ✅ 这里改成 Pages Functions 接口，替换原来的php
     const response = await fetch(`/api/getById?id=${encodeURIComponent(recordId)}`, { cache: 'no-store' });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.code !== 200) throw new Error(result.msg || '记录读取失败');
@@ -1119,13 +1118,19 @@ document.querySelectorAll('[data-back]').forEach(el => {
   el.addEventListener('click', () => show(el.dataset.back === 'start' ? 'pageStart' : 'pageIntro'));
 });
 
-async function enterStart() {
-  showLoading(true);
-  await new Promise(resolve => setTimeout(resolve, 1200));
-  show('pageStart');
+// ========== 新增逻辑：有recordId直接自动进入核验页面 ==========
+async function bootstrap() {
+  if (recordId) {
+    // 存在id，直接加载详情，跳过引导页
+    await enterDetail();
+  } else {
+    // 没有id，走原来的首页引导
+    showLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    show('pageStart');
+  }
 }
-
-enterStart();
+bootstrap();
 </script>
 </body>
 </html>
