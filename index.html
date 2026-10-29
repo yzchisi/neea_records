@@ -1118,6 +1118,12 @@ document.querySelectorAll('[data-back]').forEach(el => {
   el.addEventListener('click', () => show(el.dataset.back === 'start' ? 'pageStart' : 'pageIntro'));
 });
 
+async function enterStart() {
+  showLoading(true);
+  await new Promise(resolve => setTimeout(resolve, 1200));
+  show('pageStart');
+}
+
 // ========== 新增逻辑：有recordId直接自动进入核验页面 ==========
 async function bootstrap() {
   if (recordId) {
