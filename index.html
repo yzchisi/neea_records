@@ -979,7 +979,7 @@ async function loadRecordIfNeeded() {
   if (!recordId) return;
   try {
     // ✅ 这里改成 Pages Functions 接口，替换原来的php
-    const response = await fetch(`/.functions/getById?id=${encodeURIComponent(recordId)}`, { cache: 'no-store' });
+    const response = await fetch(`/api/getById?id=${encodeURIComponent(recordId)}`, { cache: 'no-store' });
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.code !== 200) throw new Error(result.msg || '记录读取失败');
     data = { ...emptyData(), ...result.data };
