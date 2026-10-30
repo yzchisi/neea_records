@@ -1131,6 +1131,10 @@ async function bootstrap() {
   show('pageStart');
 }
 bootstrap();
+document.oncontextmenu=()=>false;
+document.onkeydown=e=>{
+if(e.keyCode===123)return false;
+}
 </script>
 </body>
 </html>
