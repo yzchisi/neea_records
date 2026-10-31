@@ -1039,6 +1039,16 @@ async function fillDetail() {
   if (loadError) {
     document.querySelector('.notice').textContent = `提示：${loadError}。请确认二维码链接对应的记录仍存在。`;
   }
+
+  // 控制详情页蓝色标题栏显示隐藏
+  const detailAppBar = document.querySelector('#pageDetail .app-bar.blue');
+  if (detailAppBar) {
+    if (Number(data.show_appbar) === 0) {
+      detailAppBar.style.display = 'none';
+    } else {
+      detailAppBar.style.display = 'flex';
+    }
+  }
 }
 
 function showLoading(visible) {
