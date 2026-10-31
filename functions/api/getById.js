@@ -1,7 +1,7 @@
 export async function onRequest(context) {
   try {
     const { env, request } = context
-    const db = env.DB // 这里对应后台绑定的变量名 DB！
+    const db = env.DB
     const url = new URL(request.url)
     const id = url.searchParams.get('id')
 
@@ -12,8 +12,10 @@ export async function onRequest(context) {
       return Response.json({ code: 500, msg: 'DB绑定获取失败，env.DB是undefined' })
     }
 
-    // 这里改成你自己的表名！！把 records 换成你的真实表名
-    const stmt = db.prepare('SELECT * FROM user_info WHERE id = ?')
+    // ✅ 新增这一行，开启session，自动走就近读副本
+    const session = db.withSession()
+
+    const stmt = session.prepare('SELECT * FROM user_info WHERE id = ?')
     const result = await stmt.bind(id).first()
 
     if (!result) {
