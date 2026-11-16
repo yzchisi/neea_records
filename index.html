@@ -1049,6 +1049,16 @@ async function fillDetail() {
       detailAppBar.style.display = 'flex';
     }
   }
+
+  // 控制详情页蓝色渐变位置
+  const detailTab = document.querySelector('.tab');
+  if (detailTab) {
+    if (Number(data.show_appbar) === 0) {
+      detailTab.style.top = '92px';
+    } else {
+      detailTab.style.top = '150px';
+    }
+  }
 }
 
 function showLoading(visible) {
